@@ -2,3 +2,6 @@
 .idea
 build
 wrapper
+
+*.class
+bin/
