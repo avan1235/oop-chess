@@ -43,12 +43,13 @@ public class Checkboard {
       System.out.println("Draw, too many moves!");
       return false;
     }
-
+    this.totalMoves++;
+    System.out.println("\n");
+    System.out.println("That's " + this.totalMoves + " move");
     System.out.println("\n");
     System.out.println(this.toString());
     System.out.println("\n");
 
-    this.totalMoves++;
 
     List<ChessPiece> possiblePieces = new ArrayList<ChessPiece>();
     if (turn == 0)

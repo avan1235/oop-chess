@@ -12,7 +12,7 @@ public class Main {
     while (newGame.play() && licznik <= 100) {
       licznik++;
       try {
-        Thread.sleep(10);
+        Thread.sleep(1000);
       } catch (InterruptedException e) {
       }
       Util.clearConsole();

@@ -9,7 +9,7 @@ public final class V2 {
   public static final V2 NE = new V2(1, 1);
   public static final V2 SE = new V2(-1, 1);
   public static final V2 SW = new V2(-1, -1);
-  public static final V2 NW = new V2(1, -11);
+  public static final V2 NW = new V2(1, -1);
   public final int x;
   public final int y;
 
