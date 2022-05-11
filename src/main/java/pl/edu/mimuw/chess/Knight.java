@@ -1,6 +1,7 @@
 package pl.edu.mimuw.chess;
 
 import static pl.edu.mimuw.chess.V2.*;
+
 import java.util.*;
 
 public class Knight extends AbstractPiece {
@@ -11,7 +12,7 @@ public class Knight extends AbstractPiece {
   @Override
   public List<V2> getPossibleMoves() {
     List<V2> result = new ArrayList<V2>();
-    for (final V2 d : new V2[] {
+    for (final V2 d : new V2[]{
       N.plus(NW), N.plus(NE),
       S.plus(SE), S.plus(SW),
       W.plus(NW), W.plus(SW),

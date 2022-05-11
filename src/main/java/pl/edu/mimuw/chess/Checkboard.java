@@ -44,9 +44,9 @@ public class Checkboard {
       return false;
     }
 
-      System.out.println("\n");
-      System.out.println(this.toString());
-      System.out.println("\n");
+    System.out.println("\n");
+    System.out.println(this.toString());
+    System.out.println("\n");
 
     this.totalMoves++;
 
@@ -101,8 +101,7 @@ public class Checkboard {
         }
         piece.setPosition(new V2(x, y));
       }
-    }
-    else{
+    } else {
       if (this.piecesArray[x][y] == null) {
         piece.setPosition(new V2(x, y));
       } else if (this.piecesArray[x][y].getColor() == ChessColor.WHITE) {

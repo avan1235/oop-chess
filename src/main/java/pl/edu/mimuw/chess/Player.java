@@ -22,8 +22,8 @@ public class Player {
   public static boolean isMoveCorrect(V2 position1, V2 position2, ChessPiece[][] chessPieces) {
     if (!Checkboard.isOnBoard(position1) || !Checkboard.isOnBoard(position2))
       return false;
-    if(chessPieces[position2.x][position2.y] != null){
-      if(chessPieces[position2.x][position2.y].getColor() == chessPieces[position1.x][position1.y].getColor())
+    if (chessPieces[position2.x][position2.y] != null) {
+      if (chessPieces[position2.x][position2.y].getColor() == chessPieces[position1.x][position1.y].getColor())
         return false;
     }
     int abs1 = Math.abs(position1.x - position2.x);
@@ -57,16 +57,16 @@ public class Player {
       sign1 = -1;
     if (position2.y - position1.y < 0)
       sign2 = -1;
-      var currentPosition = new V2(position1.x+sign1, position1.y+sign2);
-      int counter = 0;
-      //counter in case I did any of the conditions wrong
-      while(currentPosition.x != position2.x && currentPosition.y != position2.y && counter < 10){
-        counter++;
-        if(chessPieces[currentPosition.x][currentPosition.y] != null)
-          return false;
-        currentPosition = new V2(currentPosition.x + sign1, currentPosition.y + sign2);
-      }
-      return true;
+    var currentPosition = new V2(position1.x + sign1, position1.y + sign2);
+    int counter = 0;
+    //counter in case I did any of the conditions wrong
+    while (currentPosition.x != position2.x && currentPosition.y != position2.y && counter < 10) {
+      counter++;
+      if (chessPieces[currentPosition.x][currentPosition.y] != null)
+        return false;
+      currentPosition = new V2(currentPosition.x + sign1, currentPosition.y + sign2);
+    }
+    return true;
   }
 
   public List<ChessPiece> initPieces() {
@@ -133,15 +133,15 @@ public class Player {
 
 
   public void removePiece(V2 position) {
-    var newPieces = new ArrayList <ChessPiece> ();
+    var newPieces = new ArrayList<ChessPiece>();
     for (int i = 0; i < this.pieces.size(); i++) {
       if (this.pieces.get(i).getPosition().x == position.x
-           && this.pieces.get(i).getPosition().y == position.y) {
-        for(int j=0; j<i; j++)
+        && this.pieces.get(i).getPosition().y == position.y) {
+        for (int j = 0; j < i; j++)
           newPieces.add(this.pieces.get(j));
-        for(int j=i+1; j<this.pieces.size(); j++)
+        for (int j = i + 1; j < this.pieces.size(); j++)
           newPieces.add(this.pieces.get(j));
-          this.setPieces(newPieces);
+        this.setPieces(newPieces);
         return;
       }
     }
@@ -154,7 +154,8 @@ public class Player {
     }
     return false;
   }
-  public void setPieces(List <ChessPiece> pieces){
+
+  public void setPieces(List<ChessPiece> pieces) {
     this.pieces = pieces;
   }
 }
