@@ -1,3 +1,7 @@
+![https://i.imgur.com/RUrGPSB.gif](https://i.imgur.com/RUrGPSB.gif)
+
+Original task specification follows:
+
 # Chess game
 
 We're going to implement the chess play simulation with simplified rules and some console animation of the play.
@@ -21,7 +25,7 @@ The whole simulation can be done in rando manner - there is no need to implement
 for the purpose of this task.
 
 You can use symbols from this sample board to implement your console animation:
-```java
+```
 ╔═╤═╤═╤═╤═╤═╤═╤═╗
 ║♜│♞│♝│♛│♚│♝│♞│♜║
 ╟─┼─┼─┼─┼─┼─┼─┼─╢
@@ -43,3 +47,4 @@ You can use symbols from this sample board to implement your console animation:
 or design your own 😉
 
 Deadline for this task is 18.05.2022 (11:59 😎)
+
