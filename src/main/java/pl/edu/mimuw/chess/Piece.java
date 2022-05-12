@@ -1,72 +1,17 @@
 package pl.edu.mimuw.chess;
 
-import java.util.HashSet;
 import java.util.Set;
 
-public abstract class Piece {
+public interface Piece {
+  XY getPosition();
 
-  protected final Board board;
-  protected final Player owner;
-  protected XY position;
+  Player getOwner();
 
-  public Piece(Board board, Player owner, XY position) {
-    this.board = board;
-    this.owner = owner;
-    this.position = position;
+  Set<Move> getMoves();
 
-    board.putPiece(this);
-  }
+  void doMove(XY newPosition) throws GameEnded;
 
-  public XY getPosition() {
-    return position;
-  }
+  void beCaptured(Piece byWhom) throws GameEnded;
 
-  public Player getOwner() {
-    return owner;
-  }
-
-  // Checks if the move would result in the piece leaving the board, or landing
-  // on top of a piece that cannot be captured.
-  protected boolean canLand(XY move) {
-    if (!((new XY(0, 0)).le(move) && move.lt(board.getDimensions())))
-      return false;
-    if (board.getPieceAt(move) == null) return true;
-    return board.getPieceAt(move).getOwner() != owner;
-  }
-
-  // All the moves the piece can make right now.
-  public Set<Move> getMoves() {
-    return new HashSet<>();
-  }
-
-  public void doMove(XY newPosition) throws GameEnded {
-    assert canLand(newPosition);
-    if (board.getPieceAt(newPosition) != null) {
-      assert board.getPieceAt(newPosition).getOwner() != owner;
-      board.getPieceAt(newPosition).beCaptured(this);
-    }
-    board.removePiece(this);
-    position = newPosition;
-    board.putPiece(this);
-  }
-
-  public void beCaptured(Piece byWhom) throws GameEnded {
-    assert owner != byWhom.owner;
-    board.removePiece(this);
-  }
-
-  public String getRepresentationIfWhite() {
-    return "?";
-  }
-
-  public String getRepresentationIfBlack() {
-    return "?";
-  }
-
-  public String getRepresentation() {
-    return switch (owner.getColor()) {
-      case WHITE -> getRepresentationIfWhite();
-      case BLACK -> getRepresentationIfBlack();
-    };
-  }
+  String getRepresentation();
 }

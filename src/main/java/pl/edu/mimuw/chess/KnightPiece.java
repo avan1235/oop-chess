@@ -3,7 +3,7 @@ package pl.edu.mimuw.chess;
 import java.util.HashSet;
 import java.util.Set;
 
-public class KnightPiece extends Piece {
+public class KnightPiece extends PieceAbstract {
   public KnightPiece(Board board, Player owner, XY position) {
     super(board, owner, position);
   }

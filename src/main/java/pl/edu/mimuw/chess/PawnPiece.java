@@ -3,7 +3,7 @@ package pl.edu.mimuw.chess;
 import java.util.HashSet;
 import java.util.Set;
 
-public final class PawnPiece extends Piece {
+public final class PawnPiece extends PieceAbstract {
 
   private boolean isFirstMove;
 
