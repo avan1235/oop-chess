@@ -11,17 +11,18 @@ public final class XY {
     this.y = y;
   }
 
-  // +
   public XY plus(XY v) {
     return new XY(x + v.x, y + v.y);
   }
 
-  // <=
+  public XY times(int c) {
+    return new XY(x * c, y * c);
+  }
+
   public boolean le(XY v) {
     return x <= v.x && y <= v.y;
   }
 
-  // <
   public boolean lt(XY v) {
     return x < v.x && y < v.y;
   }

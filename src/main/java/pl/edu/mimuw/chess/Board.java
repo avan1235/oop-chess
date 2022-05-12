@@ -89,7 +89,6 @@ public final class Board {
         if (x > 0) s.append("│");
         var piece = pieces.get(new XY(x, y));
         var text = " " + (piece != null ? piece.getRepresentation() : " ") + " ";
-//        if ((x + y) % 2 == 0) text = Console.makeBrighter(text);
         s.append(text);
       }
       s.append("║ \n");

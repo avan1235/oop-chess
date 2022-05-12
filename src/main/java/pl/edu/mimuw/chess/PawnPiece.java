@@ -17,8 +17,8 @@ public final class PawnPiece extends PieceAbstract {
   public Set<Move> getMoves() {
     var moves = new HashSet<Move>();
 
-    // We can move forward one (or sometimes two) fields.
-    for (var i = 1; i <= 2; ++i) {
+    // We can move forward one (or sometimes two) fields but can't capture anything.
+    for (var i = 1; i <= (isFirstMove ? 2 : 1); ++i) {
       var p = position.plus(new XY(0, owner.getForward() * i));
       if (!canLand(p)) break;
       if (board.getPieceAt(p) != null) break;

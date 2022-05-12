@@ -34,6 +34,27 @@ public abstract class PieceAbstract implements Piece {
     return board.getPieceAt(move).getOwner() != owner;
   }
 
+  private Set<Move> getMovesFromVector(XY vector) {
+    var moves = new HashSet<Move>();
+    for (var r = 0; r < 4; ++r) {
+      for (var i = 1; ; ++i) {
+        var p = position.plus(vector.times(i).rotateBy90Degrees(r));
+        if (!canLand(p)) break;
+        moves.add(new Move(this, p));
+        if (board.getPieceAt(p) != null) break;
+      }
+    }
+    return moves;
+  }
+
+  protected Set<Move> getCrosswiseMoves() {
+    return getMovesFromVector(new XY(0, owner.getForward()));
+  }
+
+  protected Set<Move> getDiagonalMoves() {
+    return getMovesFromVector(new XY(owner.getForward(), owner.getForward()));
+  }
+
   // All the moves the piece can make right now.
   public Set<Move> getMoves() {
     return new HashSet<>();

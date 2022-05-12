@@ -10,18 +10,7 @@ public class RookPiece extends PieceAbstract {
 
   @Override
   public Set<Move> getMoves() {
-    var moves = new HashSet<Move>();
-
-    // We can go in four main directions but can't jump over anyone.
-    for (var r = 0; r < 4; ++r) {
-      for (var i = 1; ; ++i) {
-        var p = position.plus((new XY(0, i * owner.getForward())).rotateBy90Degrees(r));
-        if (!canLand(p)) break;
-        moves.add(new Move(this, p));
-        if (board.getPieceAt(p) != null) break;
-      }
-    }
-    return moves;
+    return getCrosswiseMoves();
   }
 
   @Override

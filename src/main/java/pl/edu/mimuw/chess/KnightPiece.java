@@ -12,10 +12,10 @@ public class KnightPiece extends PieceAbstract {
   public Set<Move> getMoves() {
     var moves = new HashSet<Move>();
     for (var r = 0; r < 4; ++r) {
-      var p1 = position.plus((new XY(1, 2)).rotateBy90Degrees(r));
-      if (canLand(p1)) moves.add(new Move(this, p1));
-      var p2 = position.plus((new XY(2, 1)).rotateBy90Degrees(r));
-      if (canLand(p2)) moves.add(new Move(this, p1));
+      for (var vector : new XY[]{new XY(1, 2), new XY(2, 1)}) {
+        var p = position.plus(vector.rotateBy90Degrees(r));
+        if (canLand(p)) moves.add(new Move(this, p));
+      }
     }
     return moves;
   }
