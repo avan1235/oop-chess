@@ -4,11 +4,11 @@ import java.util.Set;
 
 public class Rook extends Piece {
 
-  public Rook(Position pos, Player owner, Board board) {
+  Rook(Position pos, Player owner, Board board) {
     super(pos, owner, board);
   }
 
-  public Set<Position> genPossibleMoves() {
+  public Set<Position> generatePossibleMoves() {
     return null;
   }
 

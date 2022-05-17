@@ -37,11 +37,11 @@ public final class Position {
     int rowVal = digit(row, 10);
     if (!isDigit(row) || rowVal > 8)
       throw new IllegalArgumentException();
-    return rowVal - 1;
+    return 8 - rowVal;
   }
 
   public Position(int row, int column) {
-    this.pos = Character.toString(Character.forDigit(a_NUM_VAL + column, radix)) + (row + 1);
+    this.pos = Character.toString(Character.forDigit(a_NUM_VAL + column, radix)) + (8 - row);
     this.row = row;
     this.column = column;
   }

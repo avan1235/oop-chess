@@ -5,11 +5,11 @@ import java.util.Set;
 
 public class Pawn extends Piece {
 
-  public Pawn(Position pos, Player owner, Board board) {
+  Pawn(Position pos, Player owner, Board board) {
     super(pos, owner, board);
   }
 
-  public Set<Position> genPossibleMoves() {
+  public Set<Position> generatePossibleMoves() {
     Set<Position> res = new HashSet<>();
     Position toMove;
     for (int i : new int[]{1, 2}) {

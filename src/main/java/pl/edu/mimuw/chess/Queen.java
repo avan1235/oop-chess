@@ -4,11 +4,11 @@ import java.util.Set;
 
 public class Queen extends Piece {
 
-  public Queen(Position pos, Player owner, Board board) {
+  Queen(Position pos, Player owner, Board board) {
     super(pos, owner, board);
   }
 
-  public Set<Position> genPossibleMoves() {
+  public Set<Position> generatePossibleMoves() {
     return null;
   }
 

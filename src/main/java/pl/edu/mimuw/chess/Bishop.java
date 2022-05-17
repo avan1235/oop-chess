@@ -4,11 +4,11 @@ import java.util.Set;
 
 public class Bishop extends Piece {
 
-  public Bishop(Position pos, Player owner, Board board) {
+  Bishop(Position pos, Player owner, Board board) {
     super(pos, owner, board);
   }
 
-  public Set<Position> genPossibleMoves() {
+  public Set<Position> generatePossibleMoves() {
     return null;
   }
 

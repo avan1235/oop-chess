@@ -9,16 +9,19 @@ public abstract class Piece {
   private Position pos;
   protected Board board;
   protected Set<Position> possibleMoves;
+  private Position lastUpdated;
 
-  public Piece(Position pos, Player owner, Board board) {
+  Piece(Position pos, Player owner, Board board) {
     this.owner = owner;
     this.pos = pos;
     this.board = board;
     this.possibleMoves = new HashSet<>();
+    this.lastUpdated = null;
     owner.addToPieces(this);
   }
 
-  public void move(Position moveTo) {
+   void move(Position moveTo) {
+    getPossibleMoves();
     assert possibleMoves.contains(moveTo);
     this.pos = moveTo;
   }
@@ -40,7 +43,13 @@ public abstract class Piece {
     return Objects.hash(pos, owner);
   }
 
-  public abstract Set<Position> genPossibleMoves();
+  public Set<Position> getPossibleMoves() {
+    if (this.pos.equals(this.lastUpdated)) return this.possibleMoves;
+    this.lastUpdated = this.pos;
+    return generatePossibleMoves();
+  }
+
+  public abstract Set<Position> generatePossibleMoves();
 
   public String color() {
     return this.owner.color();
