@@ -14,12 +14,16 @@ public final class V2 {
   public static final V2 SE = S.plus(E);
   public static final V2 SW = S.plus(W);
 
-  public final int x;
-  public final int y;
+  public int x;
+  public int y;
 
   private V2(int x, int y) {
     this.x = x;
     this.y = y;
+  }
+
+  public static V2 v(int x, int y) {
+    return new V2(x, y);
   }
 
   public V2 plus(V2 v) {
@@ -34,6 +38,10 @@ public final class V2 {
     return this.plus(v.times(-1));
   }
 
+  public V2 flip() {
+    return this.times(-1);
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -45,13 +53,5 @@ public final class V2 {
   @Override
   public int hashCode() {
     return Objects.hash(x, y);
-  }
-
-  public static V2 v(int x, int y) {
-    return new V2(x, y);
-  }
-
-  public static V2 flip(V2 v) {
-    return v(v.times(-1).x, v.times(-1).y);
   }
 }

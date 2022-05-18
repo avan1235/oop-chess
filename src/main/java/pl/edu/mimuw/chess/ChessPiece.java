@@ -8,9 +8,11 @@ public interface ChessPiece {
 
   void setPosition(V2 v);
 
-  List<List<V2>> getPossibleMoves();
+  List<List<V2>> getAbsoluteMoves();
 
-  List<List<V2>> getPossibleAttackMoves();
+  List<List<V2>> getAbsoluteAttackMoves();
 
   String representation();
+
+  boolean isKing();
 }
