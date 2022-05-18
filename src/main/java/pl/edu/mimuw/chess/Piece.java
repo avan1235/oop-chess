@@ -9,14 +9,14 @@ public abstract class Piece {
   private Position pos;
   protected Board board;
   protected Set<Position> possibleMoves;
-  private Position lastUpdated;
+  private int lastUpdated;
 
   Piece(Position pos, Player owner, Board board) {
     this.owner = owner;
     this.pos = pos;
     this.board = board;
     this.possibleMoves = new HashSet<>();
-    this.lastUpdated = null;
+    this.lastUpdated = -1;
     owner.addToPieces(this);
   }
 
@@ -44,9 +44,11 @@ public abstract class Piece {
   }
 
   public Set<Position> getPossibleMoves() {
-    if (this.pos.equals(this.lastUpdated)) return this.possibleMoves;
-    this.lastUpdated = this.pos;
-    return generatePossibleMoves();
+    if (this.lastUpdated != board.getMoveCount()) {
+      this.lastUpdated = board.getMoveCount();
+      this.possibleMoves = generatePossibleMoves();
+    }
+    return this.possibleMoves;
   }
 
   public abstract Set<Position> generatePossibleMoves();

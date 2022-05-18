@@ -3,6 +3,7 @@ package pl.edu.mimuw.chess;
 public class Board {
   public static final int size = 8;
   private Piece[][] board;
+  private int moveCount = 0;
 
   private static Position pos(int row, int column) {
     return new Position(row, column);
@@ -28,6 +29,10 @@ public class Board {
     return res;
   }
 
+  public int getMoveCount() {
+    return this.moveCount;
+  }
+
   public Board(White white, Black black) {
     this.board = new Piece[size][];
     this.board[0] = genPieceRow(0, white, this);
@@ -42,6 +47,7 @@ public class Board {
     board[piece.pos().row][piece.pos().column] = null;
     piece.move(moveTo);
     board[piece.pos().row][piece.pos().column] = piece;
+    this.moveCount++;
   }
 
   public boolean isFree(Position pos) {
