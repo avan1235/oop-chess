@@ -1,7 +1,9 @@
 package pl.edu.mimuw;
 
-public class Main {
+import static pl.edu.mimuw.chess.ChessBoard.*;
 
-  public static void main(String[] args) {
-  }
+public class Main {
+	public static void main(String[] args) {
+		play();
+	}
 }
