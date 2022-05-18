@@ -16,7 +16,7 @@ public class ChessGame {
   }
 
   public void lose(Player player) {
-    this.whiteWon = player.getClass() == White.class;
+    this.whiteWon = player.getClass() != White.class;
     this.winner = (whiteWon ? white : black);
     this.finished = true;
   }
