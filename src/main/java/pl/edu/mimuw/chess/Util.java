@@ -1,7 +1,5 @@
 package pl.edu.mimuw.chess;
 
-import java.io.IOException;
-
 public class Util {
 
   private Util() {
@@ -14,5 +12,13 @@ public class Util {
   public static void clearConsole() {
     System.out.print("\033[H\033[2J");
     System.out.flush();
+  }
+
+  public static void waitBetweenFrames() {
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      throw new RuntimeException(e);
+    }
   }
 }
