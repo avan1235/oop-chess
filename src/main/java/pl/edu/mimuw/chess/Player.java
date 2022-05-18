@@ -4,21 +4,18 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public abstract class Player {
-  public static final String white = "white";
-  public static final String black = "black";
-  public static Random RANDOM = new Random();
-  protected String color;
+  public static final Random RANDOM = new Random();
   private final ArrayList<Piece> pieces;
   private final ChessGame game;
   private int moveCount = 0;
 
-  public Player(ChessGame game) {
+  Player(ChessGame game) {
     this.pieces = new ArrayList<>();
     this.game = game;
   }
 
   public void addToPieces(Piece piece) {
-    assert piece.getColor().equals(this.color());
+    assert piece.owner == this;
     pieces.add(piece);
   }
 
@@ -44,7 +41,6 @@ public abstract class Player {
       game.draw();
       return;
     }
-
     Piece toMove = movable.get(RANDOM.nextInt(movable.size()));
     Position toPos = toMove.getPossibleMoves().get(RANDOM.nextInt(toMove.getPossibleMoves().size()));
     game.getBoard().movePiece(toMove, toPos);
@@ -53,9 +49,5 @@ public abstract class Player {
 
   public int getMoveCount() {
     return this.moveCount;
-  }
-
-  public String color() {
-    return this.color;
   }
 }

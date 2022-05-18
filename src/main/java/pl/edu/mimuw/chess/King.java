@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class King extends Piece {
 
   King(Position pos, Player owner, Board board) {
-    super(pos, owner, board);
+    super(pos, owner, board, "\u2654", "\u265A");
   }
 
   public ArrayList<Position> generatePossibleMoves() {
@@ -19,18 +19,9 @@ public class King extends Piece {
     return res;
   }
 
-
   @Override
   public void becomeCaptured() {
     this.owner.losePiece(this);
     owner.loseGame();
-  }
-
-  protected String whiteIcon() {
-    return "\u2654";
-  }
-
-  protected String blackIcon() {
-    return "\u265A";
   }
 }

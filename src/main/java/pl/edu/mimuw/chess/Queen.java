@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Queen extends Piece {
 
   Queen(Position pos, Player owner, Board board) {
-    super(pos, owner, board);
+    super(pos, owner, board, "\u2655", "\u265B");
   }
 
   public ArrayList<Position> generatePossibleMoves() {
@@ -17,13 +17,5 @@ public class Queen extends Piece {
       addLinearMoves(res, 0, i, Board.size);
     }
     return res;
-  }
-
-  protected String whiteIcon() {
-    return "\u2655";
-  }
-
-  protected String blackIcon() {
-    return "\u265B";
   }
 }

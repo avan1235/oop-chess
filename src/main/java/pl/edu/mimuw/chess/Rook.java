@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Rook extends Piece {
 
   Rook(Position pos, Player owner, Board board) {
-    super(pos, owner, board);
+    super(pos, owner, board, "\u2656", "\u265C");
   }
 
   public ArrayList<Position> generatePossibleMoves() {
@@ -15,13 +15,5 @@ public class Rook extends Piece {
       addLinearMoves(res, 0, i, Board.size);
     }
     return res;
-  }
-
-  protected String whiteIcon() {
-    return "\u2656";
-  }
-
-  protected String blackIcon() {
-    return "\u265C";
   }
 }

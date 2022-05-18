@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Bishop extends Piece {
 
   Bishop(Position pos, Player owner, Board board) {
-    super(pos, owner, board);
+    super(pos, owner, board, "\u2657", "\u265D");
   }
 
   public ArrayList<Position> generatePossibleMoves() {
@@ -15,13 +15,5 @@ public class Bishop extends Piece {
       addLinearMoves(res, i, -i, Board.size);
     }
     return res;
-  }
-
-  protected String whiteIcon() {
-    return "\u2657";
-  }
-
-  protected String blackIcon() {
-    return "\u265D";
   }
 }

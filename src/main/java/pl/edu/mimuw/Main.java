@@ -9,11 +9,11 @@ public class Main {
     White white = game.getWhite();
     Black black = game.getBlack();
 
-    while (game.getMoveCount() < 100 && !game.isFinished())
+    while (game.getMoveCount() < 100 && game.isNotFinished())
       for (Player player : new Player[]{white, black}) {
         game.printBoard();
         Thread.sleep(100);
-        player.makeRandomMove();
+        if (game.isNotFinished()) player.makeRandomMove();
         Util.clearConsole();
     }
 

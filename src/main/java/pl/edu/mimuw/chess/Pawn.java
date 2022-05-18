@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Pawn extends Piece {
 
   Pawn(Position pos, Player owner, Board board) {
-    super(pos, owner, board);
+    super(pos, owner, board, "\u2659", "\u265F");
   }
 
   public ArrayList<Position> generatePossibleMoves() {
@@ -25,7 +25,7 @@ public class Pawn extends Piece {
     Position toAttack;
     for (int i : new int[]{-1, 1}) {
       toAttack = Position.moveFrom(this.pos(), orientation(), i);
-      if (toAttack != null && this.isEnemyHere(toAttack))
+      if (toAttack != null && this.isEnemyOnPos(toAttack))
         res.add(toAttack);
     }
 
@@ -33,14 +33,6 @@ public class Pawn extends Piece {
   }
 
   private int orientation() {
-    return this.getColor().equals(Player.white) ? 1 : -1;
-  }
-
-  protected String whiteIcon() {
-    return "\u2659";
-  }
-
-  protected String blackIcon() {
-    return "\u265F";
+    return this.isWhite ? 1 : -1;
   }
 }

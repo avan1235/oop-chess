@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Knight extends Piece {
 
   Knight(Position pos, Player owner, Board board) {
-    super(pos, owner, board);
+    super(pos, owner, board, "\u2658", "\u265E");
   }
 
   public ArrayList<Position> generatePossibleMoves() {
@@ -15,19 +15,11 @@ public class Knight extends Piece {
       for (int j : new int[]{-1, 1}) {
         for (int k : new int[]{-1, 1}) {
           toMove = Position.moveFrom(this.pos(), (2 - i) * j, (i + 1) * k);
-          if (toMove != null && (board.isFree(toMove) || this.isEnemyHere(toMove)))
+          if (toMove != null && (board.isFree(toMove) || this.isEnemyOnPos(toMove)))
             moves.add(toMove);
         }
       }
     }
     return moves;
-  }
-
-  protected String whiteIcon() {
-    return "\u2658";
-  }
-
-  protected String blackIcon() {
-    return "\u265E";
   }
 }

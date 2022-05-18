@@ -16,7 +16,7 @@ public class ChessGame {
   }
 
   public void lose(Player player) {
-    this.whiteWon = white.getClass() != player.getClass();
+    this.whiteWon = player.getClass() == White.class;
     this.winner = (whiteWon ? white : black);
     this.finished = true;
   }
@@ -25,8 +25,8 @@ public class ChessGame {
     this.isDraw = true;
   }
 
-  public boolean isFinished() {
-    return this.finished || this.isDraw;
+  public boolean isNotFinished() {
+    return !this.finished && !this.isDraw;
   }
 
   public int getMoveCount() {

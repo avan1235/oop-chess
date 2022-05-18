@@ -4,17 +4,24 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public abstract class Piece {
-  protected final Player owner;
-  protected Board board;
+  protected final Board board;
+  protected final boolean isWhite;
+  final Player owner;
+  private final String whiteIcon;
+  private final String blackIcon;
   protected boolean wasMoved = false;
   private Position pos;
-  private ArrayList<Position> possibleMoves;
-  private int lastUpdated = -1;
 
-  Piece(Position pos, Player owner, Board board) {
-    this.owner = owner;
+  private ArrayList<Position> possibleMoves;
+  private int movesLastUpdated = -1;
+
+  Piece(Position pos, Player owner, Board board, String whiteIcon, String blackIcon) {
     this.pos = pos;
+    this.owner = owner;
     this.board = board;
+    this.isWhite = owner.getClass() == White.class;
+    this.whiteIcon = whiteIcon;
+    this.blackIcon = blackIcon;
     this.possibleMoves = new ArrayList<>();
     owner.addToPieces(this);
   }
@@ -37,7 +44,7 @@ public abstract class Piece {
       if (toMove == null) break;
       if (board.isFree(toMove))
         moves.add(toMove);
-      else if (this.isEnemyHere(toMove)) {
+      else if (this.isEnemyOnPos(toMove)) {
         moves.add(toMove);
         break;
       }
@@ -59,11 +66,11 @@ public abstract class Piece {
   }
 
   public ArrayList<Position> getPossibleMoves() {
-    if (this.lastUpdated != board.getTotalMoveCount()) {
-      this.lastUpdated = board.getTotalMoveCount();
+    if (this.movesLastUpdated != board.getTotalMoveCount()) {
+      this.movesLastUpdated = board.getTotalMoveCount();
       this.possibleMoves = generatePossibleMoves();
     }
-    return this.possibleMoves;
+    return new ArrayList<>(this.possibleMoves);
   }
 
   protected abstract ArrayList<Position> generatePossibleMoves();
@@ -72,27 +79,19 @@ public abstract class Piece {
     this.owner.losePiece(this);
   }
 
-  public String getColor() {
-    return this.owner.color();
-  }
-
   @Override
   public String toString() {
     return icon() + this.pos;
   }
 
   public String icon() {
-    return this.getColor().equals(Player.white) ? whiteIcon() : blackIcon();
+    return this.isWhite ? this.whiteIcon : this.blackIcon;
   }
 
-  public boolean isEnemyHere(Position pos) {
+  public boolean isEnemyOnPos(Position pos) {
     Piece piece = board.get(pos);
     if (piece != null)
-      return !this.getColor().equals(piece.getColor());
+      return this.isWhite != piece.isWhite;
     else return false;
   }
-
-  protected abstract String whiteIcon();
-
-  protected abstract String blackIcon();
 }
