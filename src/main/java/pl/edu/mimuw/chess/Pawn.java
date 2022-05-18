@@ -1,7 +1,6 @@
 package pl.edu.mimuw.chess;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
 
 public class Pawn extends Piece {
 
@@ -9,22 +8,32 @@ public class Pawn extends Piece {
     super(pos, owner, board);
   }
 
-  public Set<Position> generatePossibleMoves() {
-    Set<Position> res = new HashSet<>();
+  public ArrayList<Position> generatePossibleMoves() {
+    ArrayList<Position> res = new ArrayList<>();
+
     Position toMove;
-    for (int i : new int[]{1, 2}) {
-      toMove = Position.move(this.pos(), orientation() * i, 0);
+    for (int i = 1; i <= (this.wasMoved ? 1 : 2); i++) {
+      toMove = Position.moveFrom(this.pos(), orientation() * i, 0);
       if (toMove != null) {
         if (board.isFree(toMove))
           res.add(toMove);
-        else if (this.isEnemyHere(toMove)) {
-          res.add(toMove);
+        else
           break;
-        }
       }
     }
-    this.possibleMoves = res;
+
+    Position toAttack;
+    for (int i : new int[]{-1, 1}) {
+      toAttack = Position.moveFrom(this.pos(), orientation(), i);
+      if (toAttack != null && this.isEnemyHere(toAttack))
+        res.add(toAttack);
+    }
+
     return res;
+  }
+
+  private int orientation() {
+    return this.getColor().equals(Player.white) ? 1 : -1;
   }
 
   protected String whiteIcon() {

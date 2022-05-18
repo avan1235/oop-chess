@@ -1,28 +1,28 @@
 package pl.edu.mimuw.chess;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Set;
 
 public abstract class Piece {
-  private final Player owner;
-  private Position pos;
+  protected final Player owner;
   protected Board board;
-  protected Set<Position> possibleMoves;
-  private int lastUpdated;
+  protected boolean wasMoved = false;
+  private Position pos;
+  private ArrayList<Position> possibleMoves;
+  private int lastUpdated = -1;
 
   Piece(Position pos, Player owner, Board board) {
     this.owner = owner;
     this.pos = pos;
     this.board = board;
-    this.possibleMoves = new HashSet<>();
-    this.lastUpdated = -1;
+    this.possibleMoves = new ArrayList<>();
     owner.addToPieces(this);
   }
 
-   void move(Position moveTo) {
-    getPossibleMoves();
+  void move(Position moveTo) {
+    this.getPossibleMoves();
     assert possibleMoves.contains(moveTo);
+    this.wasMoved = true;
     this.pos = moveTo;
   }
 
@@ -30,35 +30,50 @@ public abstract class Piece {
     return this.pos;
   }
 
+  protected void addLinearMoves(ArrayList<Position> moves, int rowDirection, int columnDirection, int radius) {
+    Position toMove;
+    for (int i = 1; i <= radius; i++) {
+      toMove = Position.moveFrom(this.pos(), rowDirection * i, columnDirection * i);
+      if (toMove == null) break;
+      if (board.isFree(toMove))
+        moves.add(toMove);
+      else if (this.isEnemyHere(toMove)) {
+        moves.add(toMove);
+        break;
+      }
+      else break;
+    }
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Piece piece = (Piece) o;
-    return this.owner.color().equals(piece.owner.color()) && this.pos.equals(piece.pos);
+    return this.pos.equals(piece.pos) && this.icon().equals(piece.icon());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pos, owner);
+    return Objects.hash(pos.row, pos.column, this.icon());
   }
 
-  public Set<Position> getPossibleMoves() {
-    if (this.lastUpdated != board.getMoveCount()) {
-      this.lastUpdated = board.getMoveCount();
+  public ArrayList<Position> getPossibleMoves() {
+    if (this.lastUpdated != board.getTotalMoveCount()) {
+      this.lastUpdated = board.getTotalMoveCount();
       this.possibleMoves = generatePossibleMoves();
     }
     return this.possibleMoves;
   }
 
-  public abstract Set<Position> generatePossibleMoves();
+  protected abstract ArrayList<Position> generatePossibleMoves();
 
-  public String color() {
-    return this.owner.color();
+  public void becomeCaptured() {
+    this.owner.losePiece(this);
   }
 
-  protected int orientation() {
-    return this.color().equals(Player.white) ? 1 : -1;
+  public String getColor() {
+    return this.owner.color();
   }
 
   @Override
@@ -67,13 +82,13 @@ public abstract class Piece {
   }
 
   public String icon() {
-    return this.color().equals(Player.white) ? whiteIcon() : blackIcon();
+    return this.getColor().equals(Player.white) ? whiteIcon() : blackIcon();
   }
 
   public boolean isEnemyHere(Position pos) {
     Piece piece = board.get(pos);
     if (piece != null)
-      return !this.color().equals(piece.color());
+      return !this.getColor().equals(piece.getColor());
     else return false;
   }
 

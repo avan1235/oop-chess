@@ -1,6 +1,6 @@
 package pl.edu.mimuw.chess;
 
-import java.util.Set;
+import java.util.ArrayList;
 
 public class Bishop extends Piece {
 
@@ -8,8 +8,13 @@ public class Bishop extends Piece {
     super(pos, owner, board);
   }
 
-  public Set<Position> generatePossibleMoves() {
-    return null;
+  public ArrayList<Position> generatePossibleMoves() {
+    ArrayList<Position> res = new ArrayList<>();
+    for (int i : new int[]{-1, 1}) {
+      addLinearMoves(res, i, i, Board.size);
+      addLinearMoves(res, i, -i, Board.size);
+    }
+    return res;
   }
 
   protected String whiteIcon() {

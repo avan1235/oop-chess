@@ -4,18 +4,20 @@ import pl.edu.mimuw.chess.*;
 
 public class Main {
 
-  public static void main(String[] args) {
-    White white = new White();
-    Black black = new Black();
+  public static void main(String[] args) throws InterruptedException {
+    ChessGame game = new ChessGame();
+    White white = game.getWhite();
+    Black black = game.getBlack();
 
-    Board board = new Board(white, black);
-    Position pos = new Position("f5");
-    System.out.println(pos);
+    while (game.getMoveCount() < 100 && !game.isFinished())
+      for (Player player : new Player[]{white, black}) {
+        game.printBoard();
+        Thread.sleep(100);
+        player.makeRandomMove();
+        Util.clearConsole();
+    }
 
-    Piece pawn = board.get(new Position("a2"));
-    System.out.println(pawn.getPossibleMoves());
-    System.out.println(board);
-    board.movePiece(pawn, pawn.getPossibleMoves().toArray(Position[]::new)[0]);
-    System.out.println(board);
+    game.printBoard();
+    game.printResult();
   }
 }

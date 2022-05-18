@@ -1,7 +1,6 @@
 package pl.edu.mimuw.chess;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
 
 public class Queen extends Piece {
 
@@ -9,30 +8,15 @@ public class Queen extends Piece {
     super(pos, owner, board);
   }
 
-  public Set<Position> generatePossibleMoves() {
-    Set<Position> res = new HashSet<>();
-    for (int i : new int[] {-1, 1}) {
-      tryToAddMoves(res, i, i);
-      tryToAddMoves(res, i, -i);
-      tryToAddMoves(res, i, 0);
-      tryToAddMoves(res, 0, i);
+  public ArrayList<Position> generatePossibleMoves() {
+    ArrayList<Position> res = new ArrayList<>();
+    for (int i : new int[]{-1, 1}) {
+      addLinearMoves(res, i, i, Board.size);
+      addLinearMoves(res, i, -i, Board.size);
+      addLinearMoves(res, i, 0, Board.size);
+      addLinearMoves(res, 0, i, Board.size);
     }
     return res;
-  }
-
-  private void tryToAddMoves(Set<Position> moves, int rowDirection, int columnDirection) {
-    Position toMove;
-    for (int i = 1; i < Board.size; i++) {
-      toMove = Position.move(this.pos(), rowDirection * i, columnDirection * i);
-      if (toMove == null) break;
-      if (board.isFree(toMove))
-        moves.add(toMove);
-      else if (this.isEnemyHere(toMove)) {
-        moves.add(toMove);
-        break;
-      }
-      else break;
-    }
   }
 
   protected String whiteIcon() {
