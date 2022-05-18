@@ -21,7 +21,7 @@ The whole simulation can be done in rando manner - there is no need to implement
 for the purpose of this task.
 
 You can use symbols from this sample board to implement your console animation:
-```java
+```
 ╔═╤═╤═╤═╤═╤═╤═╤═╗
 ║♜│♞│♝│♛│♚│♝│♞│♜║
 ╟─┼─┼─┼─┼─┼─┼─┼─╢
@@ -42,4 +42,4 @@ You can use symbols from this sample board to implement your console animation:
 ```
 or design your own 😉
 
-Deadline for this task is 18.05.2022 (11:59 😎)
+Deadline for this task is 20.05.2022 (11:59 😎)

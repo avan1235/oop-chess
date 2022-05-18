@@ -1,7 +1,5 @@
 package pl.edu.mimuw.chess;
 
-import java.io.IOException;
-
 public class Util {
 
   private Util() {
