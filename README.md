@@ -1,4 +1,4 @@
-# Chess game
+s# Chess game
 
 We're going to implement the chess play simulation with simplified rules and some console animation of the play.
 We don't have to take care of:
