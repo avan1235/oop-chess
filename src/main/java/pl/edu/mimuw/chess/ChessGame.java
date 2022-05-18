@@ -50,7 +50,7 @@ public class ChessGame {
   }
 
   public void printResult() {
-    if (!this.isDraw)
+    if (this.finished)
       System.out.println((whiteWon ? "White" : "Black") + " won in " + winner.getMoveCount() + " moves.");
     else
       System.out.println("Draw! In " + this.board.getTotalMoveCount() + " moves.");
