@@ -15,4 +15,12 @@ public class Util {
     System.out.print("\033[H\033[2J");
     System.out.flush();
   }
+
+  public static void sleep(int ms) {
+    try {
+      Thread.sleep(ms);
+    } catch (InterruptedException e) {
+      System.out.println("InterruptedException");
+    }
+  }
 }
