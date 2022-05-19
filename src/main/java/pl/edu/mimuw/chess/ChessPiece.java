@@ -1,6 +1,8 @@
 package pl.edu.mimuw.chess;
 
-public class ChessPiece {
+import java.util.List;
+
+public abstract class ChessPiece {
   protected final ChessColor color;
   protected final char blackSymbol;
   protected final char whiteSymbol;
@@ -23,6 +25,16 @@ public class ChessPiece {
 
   public char getSymbol() {
     return color == ChessColor.BLACK ? blackSymbol : whiteSymbol;
+  }
+
+  public ChessColor getColor() {
+    return color;
+  }
+
+  public abstract List<List<Vector>> getPossibleMoves(ChessBoard board);
+
+  public boolean isKing() {
+    return false;
   }
 
   @Override

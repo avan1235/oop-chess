@@ -4,7 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ChessBoard {
-  private static final int BOARD_SIZE = 8;
+  public static final int BOARD_SIZE = 8;
+  public static final int MAX_NUMBER_OF_MOVES = 50;
   private static final char[][] CLEAR_BOARD = getClearBoardRepresentation();
 
   private final Player blackPlayer;
@@ -20,10 +21,35 @@ public class ChessBoard {
     Util.sleep(1000);
     Util.clearConsole();
 
-    blackPlayer.makeRandomMove();
-    System.out.println(this);
-    Util.sleep(1000);
-    Util.clearConsole();
+    for (int i = 0; i < MAX_NUMBER_OF_MOVES; i++) {
+      if (!blackPlayer.makeRandomMove(this)) break;
+      System.out.println(this);
+      Util.sleep(1000);
+      Util.clearConsole();
+      if (!whitePlayer.makeRandomMove(this)) break;
+      System.out.println(this);
+      Util.sleep(1000);
+      Util.clearConsole();
+  }
+
+  }
+
+  public boolean isOnBoard(Vector position) {
+    return position.x >= 0 && position.x < BOARD_SIZE && position.y >= 0 && position.y < BOARD_SIZE;
+  }
+
+  public ChessPiece getPiece(Vector position) {
+    for (var piece : blackPlayer.getPieces()) if (piece.getPosition().equals(position)) return piece;
+    for (var piece : whitePlayer.getPieces()) if (piece.getPosition().equals(position)) return piece;
+    return null;
+  }
+
+  public void beatPiece(ChessPiece piece) {
+    if (piece.getColor() == ChessColor.BLACK) {
+      blackPlayer.getPieces().remove(piece);
+    } else {
+      whitePlayer.getPieces().remove(piece);
+    }
   }
 
   @Override
