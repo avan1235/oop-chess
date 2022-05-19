@@ -28,6 +28,17 @@ public class GameState implements IGameState {
     this.blackKing = this.board.getPiece(new Position(7, 4));
   }
 
+  private int numOfPossibleMoves() {
+    var pieces = board.piecesList(turn);
+    int sum = 0;
+
+    for (var piece: pieces) {
+      sum += piece.genMoves(board).size();
+    }
+
+    return sum;
+  }
+
   private AbstractPiece selectRandomPiece() {
     var pieces = board.piecesList(turn);
     var rand = random.nextInt(pieces.size());
@@ -64,6 +75,11 @@ public class GameState implements IGameState {
 
   @Override
   public void nextMove() {
+    if (this.numOfPossibleMoves() == 0) {
+      isStopped = true;
+      return;
+    }
+
     var piece = this.selectRandomPiece();
     var move = this.selectRandomMove(piece);
 
