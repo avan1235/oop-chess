@@ -9,18 +9,5 @@ public class Main {
 
     ChessGame game = new ChessGame();
     game.play();
-
-//    for (String arg : new String[]{"some", "example", "strings"}) {
-//      sleep(1_000);
-//      Util.clearConsole();
-//      System.out.println(arg);
-//    }
   }
-
-//  private static void sleep(long millis) {
-//    try {
-//      Thread.sleep(millis);
-//    } catch (InterruptedException ignored) {
-//    }
-//  }
 }
