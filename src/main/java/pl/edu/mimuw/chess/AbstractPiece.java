@@ -3,41 +3,52 @@ package pl.edu.mimuw.chess;
 import java.util.List;
 
 public abstract class AbstractPiece implements IPiece {
-    private Square position;
-    private final PieceColor color;
-    private final String whiteRepresentation;
-    private final String blackRepresentation;
 
-    public AbstractPiece(Square position, PieceColor color, String whiteRepresentation, String blackRepresentation) {
-        this.position = position;
-        this.color = color;
-        this.whiteRepresentation = whiteRepresentation;
-        this.blackRepresentation = blackRepresentation;
-    }
+  private Square position;
+  private final PieceColor color;
+  private final String whiteRepresentation;
+  private final String blackRepresentation;
 
-    @Override
-    public Square currentPosition() {
-        return position;
-    }
+  public AbstractPiece(
+    Square position,
+    PieceColor color,
+    String whiteRepresentation,
+    String blackRepresentation
+  ) {
+    this.position = position;
+    this.color = color;
+    this.whiteRepresentation = whiteRepresentation;
+    this.blackRepresentation = blackRepresentation;
+  }
 
-    public void setPosition(Square position){
-        this.position = position;
-    }
+  public PieceColor getColor() {
+    return color;
+  }
 
-    @Override
-    public abstract List<List<Square>> getPossibleMoves();
+  @Override
+  public Square currentPosition() {
+    return position;
+  }
 
-    @Override
-    public String representation() {
-        switch(color){
-            case BLACK: {
-                return blackRepresentation;
-            }
-            case WHITE: {
-                return whiteRepresentation;
-            }
+  public void setPosition(Square position) {
+    this.position = position;
+  }
+
+  @Override
+  public abstract List<List<Square>> getPossibleMoves();
+
+  @Override
+  public String representation() {
+    switch (color) {
+      case BLACK:
+        {
+          return blackRepresentation;
         }
-        throw new IllegalStateException("Unknown color: " + color);
+      case WHITE:
+        {
+          return whiteRepresentation;
+        }
     }
-    
+    throw new IllegalStateException("Unknown color: " + color);
+  }
 }
