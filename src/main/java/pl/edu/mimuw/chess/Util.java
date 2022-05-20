@@ -4,8 +4,7 @@ import java.io.IOException;
 
 public class Util {
 
-  private Util() {
-  }
+  private Util() {}
 
   /**
    * Clearing the console content that works only in terminal mode
