@@ -13,8 +13,8 @@ public class ChessBoard {
   private final Player whitePlayer;
 
   public ChessBoard() {
-    this.blackPlayer = new Player(ChessColor.BLACK, getNewSetOfBlackPieces());
-    this.whitePlayer = new Player(ChessColor.WHITE, getNewSetOfWhitePieces());
+    this.blackPlayer = new Player(ChessColor.BLACK, getNewListOfBlackPieces());
+    this.whitePlayer = new Player(ChessColor.WHITE, getNewListOfWhitePieces());
   }
 
   public void simulateGame() {
@@ -23,35 +23,15 @@ public class ChessBoard {
     Util.clearConsole();
 
     for (int i = 0; i < MAX_NUMBER_OF_MOVES; i++) {
-      if (!blackPlayer.makeRandomMove(this)) {
-        System.out.println("Black can't make a move!");
-        return;
-      }
-      System.out.println(this);
-      Util.sleep(SLEEP_LENGTH);
-      if (!whitePlayer.hasAKing()) {
-        System.out.println("White lost his king!");
-        return;
-      }
-      Util.clearConsole();
-      if (!whitePlayer.makeRandomMove(this)) {
-        System.out.println("White can't make a move!");
-        return;
-      }
-      System.out.println(this);
-      Util.sleep(SLEEP_LENGTH);
-      if (!blackPlayer.hasAKing()) {
-        System.out.println("Black lost his king!");
-        return;
-      }
-      Util.clearConsole();
+      if (simulateMove(blackPlayer)) return;
+      if (simulateMove(whitePlayer)) return;
     }
-    System.out.println("Draw!");
 
+    System.out.println("Draw!");
   }
 
-  public boolean isOnBoard(Vector position) {
-    return position.x >= 0 && position.x < BOARD_SIZE && position.y >= 0 && position.y < BOARD_SIZE;
+  public boolean isNotOnBoard(Vector position) {
+    return position.x < 0 || position.x >= BOARD_SIZE || position.y < 0 || position.y >= BOARD_SIZE;
   }
 
   public ChessPiece getPiece(Vector position) {
@@ -94,6 +74,40 @@ public class ChessBoard {
     return sb.toString();
   }
 
+  /**
+   * Simulates a move for the given player.
+   * @param player the player to simulate a move for.
+   * @return true if the match is over, false otherwise.
+   */
+  private boolean simulateMove(Player player) {
+    final var sb = new StringBuilder();
+
+    if (!player.makeRandomMove(this)) {
+      if (player.getColor() == ChessColor.BLACK) sb.append("Black");
+      else sb.append("White");
+      sb.append(" can't make a move!");
+      System.out.println(sb);
+      return true;
+    }
+
+    System.out.println(this);
+    Util.sleep(SLEEP_LENGTH);
+
+    if (!player.hasAKing()) {
+      if (player.getColor() == ChessColor.BLACK) sb.append("Black");
+      else sb.append("White");
+      sb.append(" lost his king!");
+      System.out.println(sb);
+      return true;
+    }
+
+    Util.clearConsole();
+    return false;
+  }
+
+  /**
+   * @return an array without any pieces on it.
+   */
   private static char[][] getClearBoardRepresentation() {
     char[][] result = new char[BOARD_SIZE * 2 + 1][BOARD_SIZE * 2 + 1];
 
@@ -125,7 +139,10 @@ public class ChessBoard {
     return result;
   }
 
-  private static List<ChessPiece> getNewSetOfBlackPieces() {
+  /**
+   * @return a new list of black pieces, each of them on their starting position.
+   */
+  private static List<ChessPiece> getNewListOfBlackPieces() {
     final var result = new LinkedList<ChessPiece>();
 
     for (int i = 0; i < BOARD_SIZE; i++) result.add(new Pawn(ChessColor.BLACK, i, BOARD_SIZE - 2));
@@ -141,7 +158,10 @@ public class ChessBoard {
     return result;
   }
 
-  private static List<ChessPiece> getNewSetOfWhitePieces() {
+  /**
+   * @return a new list of white pieces, each of them on their starting position.
+   */
+  private static List<ChessPiece> getNewListOfWhitePieces() {
     final var result = new LinkedList<ChessPiece>();
 
     for (int i = 0; i < BOARD_SIZE; i++) result.add(new Pawn(ChessColor.WHITE, i, 1));

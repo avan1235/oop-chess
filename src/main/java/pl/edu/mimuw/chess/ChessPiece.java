@@ -1,18 +1,21 @@
 package pl.edu.mimuw.chess;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class ChessPiece {
-  protected final ChessColor color;
-  protected final char blackSymbol;
-  protected final char whiteSymbol;
-  protected Vector position;
+  protected final List<List<Vector>> allMoves;
+  private final ChessColor color;
+  private final char blackSymbol;
+  private final char whiteSymbol;
+  private Vector position;
 
   protected ChessPiece(ChessColor color, Vector position, char blackSymbol, char whiteSymbol) {
     this.color = color;
     this.position = position;
     this.blackSymbol = blackSymbol;
     this.whiteSymbol = whiteSymbol;
+    this.allMoves = generateAllMoves();
   }
 
   public Vector getPosition() {
@@ -31,15 +34,36 @@ public abstract class ChessPiece {
     return color;
   }
 
-  public abstract List<List<Vector>> getPossibleMoves(ChessBoard board);
+  public List<List<Vector>> getPossibleMoves(ChessBoard board) {
+    final var moves = generateAllMoves();
+    final var result = new ArrayList<List<Vector>>();
+
+    for (var direction : moves) {
+      final var thisDirection = new ArrayList<Vector>();
+
+      for (var move : direction) {
+        final var newPosition = getPosition().plus(move);
+        if (board.isNotOnBoard(newPosition)) break;
+
+        final var pieceAtNewPosition = board.getPiece(newPosition);
+        if (pieceAtNewPosition == null) {
+          thisDirection.add(move);
+        } else if (pieceAtNewPosition.getColor() != getColor()) {
+          thisDirection.add(move);
+          break;
+        } else {
+          break;
+        }
+      }
+
+      if (thisDirection.size() > 0) result.add(thisDirection);
+    }
+
+    return result;
+  }
 
   public boolean isKing() {
     return false;
-  }
-
-  @Override
-  public int hashCode() {
-    return color.hashCode() + position.hashCode();
   }
 
   @Override
@@ -50,4 +74,6 @@ public abstract class ChessPiece {
     if (this.color != other.color) return false;
     return this.position.equals(other.position);
   }
+
+  protected abstract List<List<Vector>> generateAllMoves();
 }

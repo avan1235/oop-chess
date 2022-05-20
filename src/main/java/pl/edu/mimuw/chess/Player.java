@@ -26,19 +26,26 @@ public class Player {
     return false;
   }
 
+  /**
+   * Makes a random move from the list of possible moves.
+   *
+   * @param board the board on which the move is made.
+   * @return true if the move was made, false if there are no possible moves.
+   */
   public boolean makeRandomMove(ChessBoard board) {
     final var usefulPieces = this.pieces.stream()
-      .filter(piece -> piece.getPossibleMoves(board).size() > 0).toArray(ChessPiece[]::new);
+      .filter(piece -> piece.getPossibleMoves(board).size() > 0).collect(Collectors.toList());
 
-    if (usefulPieces.length == 0) {
+    if (usefulPieces.size() == 0) {
       return false;
     } else {
-      final var piece = usefulPieces[RANDOM.nextInt(usefulPieces.length)];
-      final var usefulDirections = piece.getPossibleMoves(board).stream().filter(direction -> direction.size() > 0).collect(Collectors.toList());
+      final var piece = usefulPieces.get(RANDOM.nextInt(usefulPieces.size()));
+      final var usefulDirections = piece.getPossibleMoves(board).stream()
+        .filter(direction -> direction.size() > 0).collect(Collectors.toList());
       final var direction = usefulDirections.get(RANDOM.nextInt(usefulDirections.size()));
-
       final var newPosition = piece.getPosition().plus(direction.get(RANDOM.nextInt(direction.size())));
       final var beatenPiece = board.getPiece(newPosition);
+
       if (beatenPiece == null) piece.setPosition(newPosition);
       else {
         board.beatPiece(beatenPiece);
@@ -46,5 +53,9 @@ public class Player {
       }
       return true;
     }
+  }
+
+  public ChessColor getColor() {
+    return this.color;
   }
 }
