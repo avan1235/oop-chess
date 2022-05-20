@@ -10,8 +10,4 @@ public interface ChessPiece {
   List<List<V2>> getPossibleMoves();
 
   String representation();
-
-  String toString();
-
-  enum PieceColor {BLACK, WHITE};
 }
