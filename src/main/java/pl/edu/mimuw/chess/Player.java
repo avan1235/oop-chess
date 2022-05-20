@@ -40,7 +40,10 @@ public class Player {
       final var newPosition = piece.getPosition().plus(direction.get(RANDOM.nextInt(direction.size())));
       final var beatenPiece = board.getPiece(newPosition);
       if (beatenPiece == null) piece.setPosition(newPosition);
-      else board.beatPiece(beatenPiece);
+      else {
+        board.beatPiece(beatenPiece);
+        piece.setPosition(newPosition);
+      }
       return true;
     }
   }

@@ -5,7 +5,8 @@ import java.util.List;
 
 public class ChessBoard {
   public static final int BOARD_SIZE = 8;
-  public static final int MAX_NUMBER_OF_MOVES = 50;
+  private static final int MAX_NUMBER_OF_MOVES = 50;
+  private static final int SLEEP_LENGTH = 1000;
   private static final char[][] CLEAR_BOARD = getClearBoardRepresentation();
 
   private final Player blackPlayer;
@@ -18,19 +19,34 @@ public class ChessBoard {
 
   public void simulateGame() {
     System.out.println(this);
-    Util.sleep(1000);
+    Util.sleep(SLEEP_LENGTH);
     Util.clearConsole();
 
     for (int i = 0; i < MAX_NUMBER_OF_MOVES; i++) {
-      if (!blackPlayer.makeRandomMove(this)) break;
+      if (!blackPlayer.makeRandomMove(this)) {
+        System.out.println("Black can't make a move!");
+        return;
+      }
       System.out.println(this);
-      Util.sleep(1000);
+      Util.sleep(SLEEP_LENGTH);
+      if (!whitePlayer.hasAKing()) {
+        System.out.println("White lost his king!");
+        return;
+      }
       Util.clearConsole();
-      if (!whitePlayer.makeRandomMove(this)) break;
+      if (!whitePlayer.makeRandomMove(this)) {
+        System.out.println("White can't make a move!");
+        return;
+      }
       System.out.println(this);
-      Util.sleep(1000);
+      Util.sleep(SLEEP_LENGTH);
+      if (!blackPlayer.hasAKing()) {
+        System.out.println("Black lost his king!");
+        return;
+      }
       Util.clearConsole();
-  }
+    }
+    System.out.println("Draw!");
 
   }
 

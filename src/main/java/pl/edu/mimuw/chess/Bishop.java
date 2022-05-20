@@ -30,7 +30,7 @@ public class Bishop extends ChessPiece {
           break;
         }
       }
-      result.add(thisDirection);
+      if (thisDirection.size() > 0) result.add(thisDirection);
     }
     return result;
   }
