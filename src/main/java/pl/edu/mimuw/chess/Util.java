@@ -1,10 +1,16 @@
 package pl.edu.mimuw.chess;
 
-import java.io.IOException;
+import static pl.edu.mimuw.chess.ChessBoard.isOnBoard;
 
 public class Util {
 
   private Util() {
+  }
+
+  public static String square(V2 position) {
+    assert isOnBoard(position);
+    if((position.x + position.y) % 2 == 0) return "█";
+    else return " ";
   }
 
   /**
