@@ -9,7 +9,7 @@ public class Util {
 
   public static String square(V2 position) {
     assert isOnBoard(position);
-    if ((position.x + position.y) % 2 == 0) return "█";
+    if((position.x + position.y) % 2 == 0) return "█";
     else return " ";
   }
 

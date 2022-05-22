@@ -46,7 +46,7 @@ public class ChessBoard {
     StringBuilder sb = new StringBuilder();
     String[][] fields = this.fields();
     sb.append("╔═╤═╤═╤═╤═╤═╤═╤═╗\n");
-    for (int i = 0; i < BOARD_SIZE; i++) {
+    for (int i = BOARD_SIZE - 1; i >= 0; i--) {
       sb.append("║");
       for (int j = 0; j < BOARD_SIZE - 1; j++) {
         sb.append(fields[i][j]).append("│");
@@ -57,7 +57,6 @@ public class ChessBoard {
     }
     return sb.toString();
   }
-
 
   //returns color of the piece occupying given field or null if the field is free
   private ChessColor isOccupied(V2 position) {
@@ -114,7 +113,8 @@ public class ChessBoard {
 
   public void play() {
     Util.clearConsole();
-    for (int i = 0; i < 500; i++) {
+    int i;
+    for (i = 0; i < 50; i++) {
       System.out.println(this);
       System.out.println("\n");
       if (!this.canContinue(whitePlayer)) {
@@ -132,7 +132,9 @@ public class ChessBoard {
       }
       move(this.blackPlayer);
     }
-    System.out.println(this);
-    System.out.println("\n");
+    if(i==50) {
+      System.out.println(this);
+      System.out.println("\n");
+    }
   }
 }
